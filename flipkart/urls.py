@@ -14,7 +14,7 @@ urlpatterns = [
     path('update-cart/<str:id>/<str:op>/', myapp.updateCart,name="update-cart"),
     path("checkout/",myapp.checkout,name="checkout"),
     path('payment-success/<int:id>/<str:rppid>/<str:rpoid>/<str:rpsid>/', myapp.paymentSuccess,name="payment-success"),
-    path('re-payment/<int:id>/', myapp.rePaymentPage,name="re-payment"),
+    path('re-payment/<int:id>/', myapp.rePayment,name="re-payment"),
 
     path("confirmation/",myapp.confirmation,name="confirmation"),
     path("contact/",myapp.contact,name="contact"),

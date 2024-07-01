@@ -27,17 +27,17 @@
     <link rel="stylesheet" href="{% static 'css/slick.css' %}">
     <!-- style CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <style>
+    {% comment %} <style>
         .banner_part::after {
             display: none;
         }
-    </style>
+    </style> {% endcomment %}
 </head>
 
 <body>
     <!--::header part start::-->
     <header class="main_menu home_menu">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
@@ -110,7 +110,7 @@
             </div>
         </div>
         <div class="search_input" id="search_input_box">
-            <div class="container ">
+            <div class="container-fluid ">
                 <form class="d-flex justify-content-between search-inner" method="post" action="/search/">
                     {% csrf_token %}
                     <input type="text" name="search" class="form-control" id="search_input" placeholder="Search Here">
@@ -124,33 +124,35 @@
     <!-- Header part end-->
 
     {% block body %}
-    <!-- banner part start-->
-    <section class="banner_part">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-5">
-                    <div class="banner_text">
-                        <div class="banner_text_iner">
-                            <h1>Men Latest Fashion</h1>
-                            <p>Jeans, Shirt, T-shirt, Trouser many more big brands like Adidas, Mufti, Nike, etc...</p>
-                            <a href="/shop/Male/All/All" class="btn_1">shop now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="banner_img">
-            <img src="{% static 'banner/icon10.jpg' %}" alt="#" class="img-fluid">
-        </div>
-    </section>
-
-    <!-- banner part start-->
+    
 
     <!-- product list start-->
-    <section class="single_product_list">
-        <div class="container">
+    <section class="single_product_list p-1">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
+                    <div class="single_product_iner">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="single_product_img">
+                                    <img src="{% static 'banner/icon10.jpg' %}" style="height: 395px;" class="img-fluid"
+                                        alt="#">
+                                    <img src="{% static 'img/product_overlay.png' %}" alt="#"
+                                        class="product_overlay img-fluid">
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-sm-6">
+                                <div class="single_product_content">
+                                    <h5>Started from &#8377;500</h5>
+                                    <h2> <a href="/shop/Male/All/All">Male Fashion</a> </h2>
+                                    <p>Jeans, Shirt, T-shirt, Trouser many more big brands like Adidas, Mufti, Nike,
+                                        etc.....</p>
+
+                                    <a href="/shop/Male/All/All" class="btn_1">Explore Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="single_product_iner">
                         <div class="row align-items-center justify-content-between">
                             <div class="col-lg-6 col-sm-6">
@@ -204,7 +206,7 @@
 
     <!-- trending item start-->
     <section class="trending_items">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section_tittle text-center">
@@ -235,7 +237,7 @@
 
     <!-- client review part here -->
     <section class="client_review">
-        <div class="container-fluid">
+        <div class="container-fluid-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="client_review_slider owl-carousel">
@@ -258,7 +260,7 @@
 
     <!-- feature part here -->
     <section class="feature_part section_padding">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-between">
                 <div class="col-lg-6">
                     <div class="feature_part_tittle">
@@ -307,7 +309,7 @@
 
     <!-- subscribe part here -->
     <section class="subscribe_part p-5">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="subscribe_part_content">
@@ -337,7 +339,7 @@
     <!--::footer_part start::-->
     <footer class="footer_part subscribe_part">
         <div class="footer_iner ">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row justify-content-between align-items-center">
                     <div class="col-lg-8">
                         <div class="footer_menu">

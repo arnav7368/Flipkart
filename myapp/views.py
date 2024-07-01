@@ -112,35 +112,33 @@ def singleproduct(request,id):
 
 
 
-def shop(request,mc,sc,br):
-    if(mc=="All" and sc=="All" and br=="All"): 
-      products=Product.objects.all().order_by("-id")
-    
+def shop(Request,mc,sc,br):
+    if(mc=="All" and sc=="All" and br=="All"):
+        products = Product.objects.all().order_by("-id")
     elif(mc!="All" and sc=="All" and br=="All"):
-      products=Product.objects.filter(maincategory=Maincategory.objects.get(name=mc)).order_by("-id")
-    
+        products = Product.objects.filter(maincategory=Maincategory.objects.get(name=mc)).order_by("-id")
     elif(mc=="All" and sc!="All" and br=="All"):
-      products=Product.objects.filter(subcategory=Subcategory.objects.get(name=sc)).order_by("-id")
-    
+        products = Product.objects.filter(subcategory=Subcategory.objects.get(name=sc)).order_by("-id")
     elif(mc=="All" and sc=="All" and br!="All"):
-      products=Product.objects.filter(brand=Brand.objects.get(name=br)).order_by("-id")
-    
+        products = Product.objects.filter(brand=Brand.objects.get(name=br)).order_by("-id")
     elif(mc!="All" and sc!="All" and br=="All"):
-      products=Product.objects.filter(maincategory=Maincategory.objects.get(name=mc),subcategory=Subcategory.objects.get(name=sc)).order_by("-id")
-    
+        products = Product.objects.filter(maincategory=Maincategory.objects.get(name=mc),subcategory=Subcategory.objects.get(name=sc)).order_by("-id").order_by("-id")
     elif(mc!="All" and sc=="All" and br!="All"):
-      products=Product.objects.filter(maincategory=Maincategory.objects.get(name=mc),brand=Brand.objects.get(name=br)).order_by("-id")
-    
+        products = Product.objects.filter(maincategory=Maincategory.objects.get(name=mc),brand=Brand.objects.get(name=br)).order_by("-id").order_by("-id")
     elif(mc=="All" and sc!="All" and br!="All"):
-      products=Product.objects.filter(brand=Brand.objects.get(name=br),subcategory=Subcategory.objects.get(name=sc)).order_by("-id")
-
+        products = Product.objects.filter(brand=Brand.objects.get(name=br),subcategory=Subcategory.objects.get(name=sc)).order_by("-id").order_by("-id")    
     else:
-       products=Product.objects.filter(maincategory=Maincategory.objects.get(name=mc),brand=Brand.objects.get(name=br),subcategory=Subcategory.objects.get(name=sc)).order_by("-id")
+        products = Product.objects.filter(maincategory=Maincategory.objects.get(name=mc),subcategory=Subcategory.objects.get(name=sc),brand=Brand.objects.get(name=br)).order_by("-id").order_by("-id")    
+    
+    
+    maincategory = Maincategory.objects.all().order_by("-id")
+    subcategory = Subcategory.objects.all().order_by("-id")
+    brand = Brand.objects.all().order_by("-id")
 
-    maincategory= Maincategory.objects.all().order_by("-id")
-    subcategory= Subcategory.objects.all().order_by("-id")
-    brand= Brand.objects.all().order_by("-id")
-    return render(request,"shop.html",{"products":products,"maincategory": maincategory,"subcategory": subcategory,"brand":brand,"mc":mc,"sc":sc,"br":br})
+    paginator = Paginator(products, 12)
+    page_number = Request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(Request,"shop.html",{'maincategory':maincategory,'subcategory':subcategory,'brand':brand,'mc':mc,'sc':sc,'br':br,'page_obj':page_obj})
 
 def login(request):
     if(request.method=="POST"):
@@ -439,7 +437,7 @@ def paymentSuccess(request,id,rppid,rpoid,rpsid):
     return HttpResponseRedirect('/confirmation/'+str(id)+"/")
 
 @login_required(login_url='/login/')
-def rePaymentPage(Request,id):
+def rePayment(Request,id):
     try:
         checkout = Checkout.objects.get(id=id)
         buyer = Buyer.objects.get(username=Request.user.username)
@@ -459,3 +457,4 @@ def rePaymentPage(Request,id):
         })
     except:
         return HttpResponseRedirect("/profile/")
+
